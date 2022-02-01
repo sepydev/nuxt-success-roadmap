@@ -1,17 +1,19 @@
 <template>
   <div class="col-md-4 offset-md-4">
     <h2 class="text-center">Welcome back! </h2>
-    <form @submit.prevent="userLogin">
+    <b-form @submit.prevent="userLogin">
       <label class="col-form-label">Email</label>
-      <input type="email" class="input-group" name="email" v-model="login.email">
+      <b-input type="email" class="input-group" name="email" v-model="login.email"/>
       <br/>
 
       <label class="col-form-label">Password</label>
-      <input type="password" class="input-group" name="password" v-model="login.password"><br/>
+      <b-input type="password" class="input-group" name="password" v-model="login.password"/><br/>
 
-      <button type="submit">Submit</button>
+      <b-button  type="submit" >Submit</b-button>
+    </b-form>
+    <br/>
+    <nuxt-link to="/account/reset-password" >forget password</nuxt-link>
 
-    </form>
   </div>
 
 </template>
