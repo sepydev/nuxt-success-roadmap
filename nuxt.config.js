@@ -39,6 +39,8 @@ export default {
     '@nuxtjs/axios',
     '@nuxtjs/proxy',
     '@nuxtjs/auth-next',
+  //  My modules
+
 
   ],
 
