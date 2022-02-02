@@ -51,9 +51,9 @@ export default {
     proxy: true
   },
   proxy: {
-    '/API': {
+    '/endpoint': {
       target: 'http://127.0.0.1:8000/',
-      pathRewrite: {'^/API': ''},
+      pathRewrite: {'^/endpoint': ''},
       changeOrigin: true
     }
   },
@@ -84,9 +84,9 @@ export default {
         //   },
         // },
         endpoints: {
-          login: {url: '/API/accounts/api/login/', method: 'post'  },
-          logout: {url: '/API/accounts/api/logout/', method: 'post'},
-          user: {url: '/API/accounts/api/user/', method: 'get' }
+          login: {url: '/endpoint/accounts/api/login/', method: 'post'  },
+          logout: {url: '/endpoint/accounts/api/logout/', method: 'post'},
+          user: {url: '/endpoint/accounts/api/user/', method: 'get' }
         }
       }
     }

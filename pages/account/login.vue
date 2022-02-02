@@ -12,7 +12,7 @@
       <b-button  type="submit" >Submit</b-button>
     </b-form>
     <br/>
-    <nuxt-link to="/account/reset-password" >forget password</nuxt-link>
+    <nuxt-link to="/account/password/reset/" >forget password</nuxt-link>
 
   </div>
 
