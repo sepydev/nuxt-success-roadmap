@@ -1,6 +1,6 @@
 <template>
 <div>
-  <b-navbar toggleable="lg" type="dark" variant="info">
+  <b-navbar toggleable="lg" type="dark" variant="dark">
     <b-navbar-brand to="/" style="padding-left: 10px">Home</b-navbar-brand>
     <div v-if="this.$auth.loggedIn">
       <nuxt-link to="/account/profile" class="btn btn-link">{{ this.$auth.user.email }}</nuxt-link>

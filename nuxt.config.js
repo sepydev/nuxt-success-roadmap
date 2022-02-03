@@ -22,7 +22,7 @@ export default {
   globals: [],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-  plugins: [],
+  plugins: ['~/plugins/axios'],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: true,
@@ -39,7 +39,7 @@ export default {
     '@nuxtjs/axios',
     '@nuxtjs/proxy',
     '@nuxtjs/auth-next',
-  //  My modules
+    //  My modules
 
 
   ],
@@ -48,7 +48,9 @@ export default {
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {
     // baseURL: 'http://127.0.0.1:8000/',
-    proxy: true
+    proxy: true,
+
+
   },
   proxy: {
     '/endpoint': {
@@ -80,13 +82,13 @@ export default {
         // cookie: {
         //   cookie: {
         //     // (optional) If set, we check this cookie existence for loggedIn check
-        //     name: 'csrftoken',
+        //     name: 'XSRF-TOKEN',
         //   },
         // },
         endpoints: {
-          login: {url: '/endpoint/accounts/api/login/', method: 'post'  },
+          login: {url: '/endpoint/accounts/api/login/', method: 'post'},
           logout: {url: '/endpoint/accounts/api/logout/', method: 'post'},
-          user: {url: '/endpoint/accounts/api/user/', method: 'get' }
+          user: {url: '/endpoint/accounts/api/user/', method: 'get'}
         }
       }
     }
