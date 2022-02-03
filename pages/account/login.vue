@@ -7,7 +7,12 @@
       <br/>
 
       <label class="col-form-label">Password</label>
-      <b-input type="password" class="input-group" name="password" v-model="login.password"/><br/>
+      <b-input type="password" class="input-group" name="password" v-model="login.password"/>
+
+      <div class="text-danger">
+        {{ this.error }}
+      </div>
+      <br/>
 
       <b-button  type="submit" >Submit</b-button>
     </b-form>
@@ -32,6 +37,7 @@ export default {
         email: '',
         password: '',
       },
+      error:'',
     }
   },
   methods: {
@@ -43,6 +49,7 @@ export default {
           })
         this.$router.push('/')
       } catch (err) {
+        this.error = err.response.data.non_field_errors
         console.log(err)
       }
     }
