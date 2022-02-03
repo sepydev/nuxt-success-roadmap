@@ -29,6 +29,7 @@ export default {
   },
   methods: {
     async resetPassword() {
+      this.$nuxt.$loading.start()
       try {
         let response = await this.$axios.post('endpoint/accounts/api/password/reset/',
           {
@@ -38,6 +39,7 @@ export default {
       } catch (err) {
         console.log(err)
       }
+      this.$nuxt.$loading.finish()
     }
   }
 }
