@@ -36,6 +36,8 @@
 <script>
 export default {
   name: "reset-password-confirm",
+  middleware: "auth",
+  auth: "guest",
   data() {
     return {
       data: {
