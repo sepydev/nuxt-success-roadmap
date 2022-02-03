@@ -8,6 +8,7 @@
     </div>
     <div v-else>
       <nuxt-link to="/account/login" class="btn btn-link">Login</nuxt-link>
+      <nuxt-link to="/account/register" class="btn btn-link">Register</nuxt-link>
     </div>
   </b-navbar>
 </div>
