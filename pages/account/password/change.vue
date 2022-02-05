@@ -1,20 +1,26 @@
 <template>
   <div class="col-sm-4 offset-4">
-    <h2>Reset your password!</h2>
+    <h2>Change password</h2>
     <b-form @submit.prevent="changePassword">
-      <label class="my-2">New password:</label>
-      <b-input type="password" :state="passwordLengthCheck"
-               v-model="data.new_password1" name="new_password1"
+      <label>New password:</label>
+      <b-input name="password1"
+               required
+               type="password"
+               v-model="data.new_password1"
                placeholder="Enter your new password"
+               :state="passwordLengthCheck"
       />
       <b-form-invalid-feedback>
         Password must be grater or equal 8 characters
       </b-form-invalid-feedback>
-      <label class="my-2">Confirm password:</label>
-      <b-input type="password" :state="matchPasswords"
+
+      <label>Confirm password:</label>
+      <b-input name="password2"
+               required
+               type="password"
                v-model="data.new_password2"
-               name="new_password2"
                placeholder="Enter your new password again"
+               :state="matchPasswords"
       />
       <b-form-invalid-feedback>
         Confirm password is not matched with the password!
@@ -24,29 +30,23 @@
         {{ this.error }}
       </div>
       <br/>
-      <b-button class="btn-danger" type="submit">Change password</b-button>
-
+      <b-button type="submit" class="btn-danger">Change Password</b-button>
 
     </b-form>
-
-
   </div>
 </template>
 
 <script>
 export default {
-  name: "reset-password-confirm",
+  name: "change",
   middleware: "auth",
-  auth: "guest",
   data() {
     return {
       data: {
         new_password1: "",
         new_password2: "",
-        uid: this.$route.query.uidb64,
-        token: this.$route.query.token,
       },
-      error: '',
+      error: "",
     }
   },
   computed: {
@@ -55,28 +55,26 @@ export default {
     },
     matchPasswords() {
       return this.data.new_password1 === this.data.new_password2
-    }
+    },
   },
   methods: {
     async changePassword() {
-      this.error = ''
-      if (!(this.passwordLengthCheck & this.matchPasswords)) {
-        return
-      }
+      this.error = ""
       try {
-        let response = await this.$axios.post(
-          'endpoint/accounts/api/password/reset/confirm/',
-          this.data
-        )
-        this.$router.push('/done?msg=Reset password is completed.&url=account/login&button=Login')
+        let response = await this.$axios.post('endpoint/accounts/api/password/change/',
+          this.data)
+        if (response.status == 200) {
+          this.$router.push('/done?msg=The password is changed.&url=account/login&button=Login')
+        }
+
+
       } catch (err) {
         this.error = err.response.data
         console.log(err)
+
       }
-
     }
-  }
-
+  },
 }
 </script>
 

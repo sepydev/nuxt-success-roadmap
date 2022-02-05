@@ -10,7 +10,7 @@
       <b-form-input type="text" v-model="user.last_name" required/>
       <br/>
       <b-button type="submit">Save Changes</b-button>
-      <b-button to="/account/change-password" class="btn-danger">Change Password</b-button>
+      <b-button to="/account/password/change" class="btn-danger">Change Password</b-button>
     </b-form>
   </div>
 </template>
