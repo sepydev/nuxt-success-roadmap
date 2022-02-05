@@ -43,8 +43,8 @@ export default {
       data: {
         new_password1: "",
         new_password2: "",
-        uid: this.$route.params.uidb64,
-        token: this.$route.params.token,
+        uid: this.$route.query.uidb64,
+        token: this.$route.query.token,
       },
       error: '',
     }
