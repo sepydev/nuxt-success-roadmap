@@ -2,12 +2,43 @@
   <div class="col-sm-4 offset-md-4">
     <h2>User Profile</h2>
     <b-form @submit.prevent="saveUserData">
-      <label class="my-2">Email:</label>
-      <b-form-input type="text" :value="this.$auth.user.email" readonly/>
-      <label class="my-2">First Name:</label>
-      <b-form-input type="text" v-model="user.first_name" required/>
-      <label class="my-2">Last Name:</label>
-      <b-form-input type="text" v-model="user.last_name" required/>
+      <b-card class="m-2">
+        <label class="my-2">Email:</label>
+        <b-form-input type="text" :value="this.$auth.user.email" readonly/>
+        <label class="my-2">First Name:</label>
+        <b-form-input type="text" v-model="user.first_name" required/>
+        <label class="my-2">Last Name:</label>
+        <b-form-input type="text" v-model="user.last_name"/>
+
+        <label class="my-2">Bio:</label>
+        <b-textarea v-model="user.biography"/>
+      </b-card>
+      <b-card class="m-2">
+        <b-card-header>Personal data</b-card-header>
+        <b-card-body>
+          <label class="my-2">Website:</label>
+          <b-form-input
+            type="text"
+            v-model="user.website"
+            :state="validate_url(user.website)"
+          />
+
+          <label class="my-2">Phone Number:</label>
+          <b-form-input
+            type="text"
+            v-model="user.phone_number"
+            :state="validate_phone(user.phone_number)"
+          />
+
+
+          <label class="my-2">Gender</label>
+          <b-form-input type="text" v-model="user.gender"/>
+
+        </b-card-body>
+      </b-card>
+      <div class="text-danger">
+        {{ this.error }}
+      </div>
       <br/>
       <b-button type="submit">Save Changes</b-button>
       <b-button to="/account/password/change" class="btn-danger">Change Password</b-button>
@@ -21,20 +52,38 @@ export default {
   middleware: "auth",
   data() {
     return {
+      error: '',
       user: {
         first_name: this.$auth.user.first_name,
-        last_name: this.$auth.user.last_name
-      }
+        last_name: this.$auth.user.last_name,
+        biography: this.$auth.user.biography,
+        website: this.$auth.user.website,
+        phone_number: this.$auth.user.phone_number,
+        gender: this.$auth.user.gender
+
+      },
+      url_regex: /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/,
+      phone_regex : /(^(\+?1?\d{9,15})$)|^$/,
+
     }
   }
   ,
   methods: {
+    validate_url(url) {
+      return this.url_regex.test(url)
+    },
+    validate_phone(url) {
+      return this.phone_regex.test(url)
+    },
+
     async saveUserData() {
+      this.error = ''
       try {
         let response = await this.$axios.put('endpoint/accounts/api/user/',
           this.user)
         this.$auth.fetchUser()
       } catch (err) {
+        this.error = err.response.data
         console.log(err)
       }
     }
