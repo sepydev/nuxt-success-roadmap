@@ -32,7 +32,13 @@
 
 
           <label class="my-2">Gender</label>
-          <b-form-input type="text" v-model="user.gender"/>
+          <!--          <vue-autosuggest :suggestions="genders" input-props=""-->
+          <!--                           :v-model="user.gender"/>-->
+
+          <vue-simple-suggest
+            :list="genders"
+            v-model="user.gender"
+          />
 
         </b-card-body>
       </b-card>
@@ -47,11 +53,17 @@
 </template>
 
 <script>
+import VueSimpleSuggest from 'vue-simple-suggest'
+
 export default {
   name: "profile",
+  components: {
+    VueSimpleSuggest
+  },
   middleware: "auth",
   data() {
     return {
+      genders: ['Male', 'Female',],
       error: '',
       user: {
         first_name: this.$auth.user.first_name,
@@ -63,7 +75,7 @@ export default {
 
       },
       url_regex: /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/,
-      phone_regex : /(^(\+?1?\d{9,15})$)|^$/,
+      phone_regex: /(^(\+?1?\d{9,15})$)|^$/,
 
     }
   }
