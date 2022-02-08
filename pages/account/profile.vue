@@ -1,53 +1,63 @@
 <template>
-  <div class="col-sm-4 offset-md-4">
-    <h2>User Profile</h2>
+  <div>
     <b-form @submit.prevent="saveUserData">
-      <b-card class="m-2">
-        <label class="my-2">Email:</label>
-        <b-form-input type="text" :value="this.$auth.user.email" readonly/>
-        <label class="my-2">First Name:</label>
-        <b-form-input type="text" v-model="user.first_name" required/>
-        <label class="my-2">Last Name:</label>
-        <b-form-input type="text" v-model="user.last_name"/>
+      <div class="col-md-8 offset-md-2 row ">
+        <h2>User Profile</h2>
+        <div class="col order-md-1  ">
+          <h6>Profile picture</h6>
+          <b-img  :src="get_picture()" fluid rounded="circle"/>
+          <b-button class="my-2" >Upload a photo</b-button>
+          <b-button class="my-2"  >remove photo</b-button>
+        </div>
+        <div class="col order-md-0  " >
+          <b-card class="m-2">
+            <label class="my-2">Email:</label>
+            <b-form-input type="text" :value="this.$auth.user.email" readonly/>
+            <label class="my-2">First Name:</label>
+            <b-form-input type="text" v-model="user.first_name" required/>
+            <label class="my-2">Last Name:</label>
+            <b-form-input type="text" v-model="user.last_name"/>
 
-        <label class="my-2">Bio:</label>
-        <b-textarea v-model="user.biography"/>
-      </b-card>
-      <b-card class="m-2">
-        <b-card-header>Personal data</b-card-header>
-        <b-card-body>
-          <label class="my-2">Website:</label>
-          <b-form-input
-            type="text"
-            v-model="user.website"
-            :state="validate_url(user.website)"
-          />
+            <label class="my-2">Bio:</label>
+            <b-textarea v-model="user.biography"/>
+          </b-card>
+          <b-card class="m-2">
+            <b-card-header>Personal data</b-card-header>
+            <b-card-body>
+              <label class="my-2">Website:</label>
+              <b-form-input
+                type="text"
+                v-model="user.website"
+                :state="validate_url(user.website)"
+              />
 
-          <label class="my-2">Phone Number:</label>
-          <b-form-input
-            type="text"
-            v-model="user.phone_number"
-            :state="validate_phone(user.phone_number)"
-          />
+              <label class="my-2">Phone Number:</label>
+              <b-form-input
+                type="text"
+                v-model="user.phone_number"
+                :state="validate_phone(user.phone_number)"
+              />
 
 
-          <label class="my-2">Gender</label>
-          <!--          <vue-autosuggest :suggestions="genders" input-props=""-->
-          <!--                           :v-model="user.gender"/>-->
+              <label class="my-2">Gender</label>
+              <!--          <vue-autosuggest :suggestions="genders" input-props=""-->
+              <!--                           :v-model="user.gender"/>-->
 
-          <vue-simple-suggest
-            :list="genders"
-            v-model="user.gender"
-          />
+              <vue-simple-suggest
+                :list="genders"
+                v-model="user.gender"
+              />
 
-        </b-card-body>
-      </b-card>
-      <div class="text-danger">
-        {{ this.error }}
+            </b-card-body>
+          </b-card>
+          <div class="text-danger">
+            {{ this.error }}
+          </div>
+          <br/>
+          <b-button type="submit">Save Changes</b-button>
+          <b-button to="/account/password/change" class="btn-danger">Change Password</b-button>
+        </div>
       </div>
-      <br/>
-      <b-button type="submit">Save Changes</b-button>
-      <b-button to="/account/password/change" class="btn-danger">Change Password</b-button>
     </b-form>
   </div>
 </template>
@@ -81,6 +91,15 @@ export default {
   }
   ,
   methods: {
+    get_picture(){
+      let name = 'man'
+      if ( this.user.gender.toLowerCase()==='female')
+      {
+        name = 'woman'
+      }
+      return '../'+ name +'.png'
+
+    },
     validate_url(url) {
       return this.url_regex.test(url)
     },
