@@ -5,11 +5,22 @@
         <h2>User Profile</h2>
         <div class="col order-md-1  ">
           <h6>Profile picture</h6>
-          <b-img  :src="get_picture()" fluid rounded="circle"/>
-          <b-button class="my-2" >Upload a photo</b-button>
-          <b-button class="my-2"  >remove photo</b-button>
+          <b-img :src="get_picture()" fluid rounded="circle"/>
+          <div class="d-flex justify-content-center">
+            <!--            <b-button class="m-2" @click="uploadPhoto">Upload a photo</b-button>-->
+
+            <label class="btn btn-primary m-2">Upload a photo
+              <input type="file" id="file" v-on:change="uploadPhoto($event)"/>
+            </label>
+
+            <b-button class="m-2" @click="removePhoto">remove photo</b-button>
+          </div>
+          <br/>
+          <div class="text-danger">
+            {{ this.photo_upload_error }}
+          </div>
         </div>
-        <div class="col order-md-0  " >
+        <div class="col order-md-0  ">
           <b-card class="m-2">
             <label class="my-2">Email:</label>
             <b-form-input type="text" :value="this.$auth.user.email" readonly/>
@@ -75,6 +86,7 @@ export default {
     return {
       genders: ['Male', 'Female',],
       error: '',
+      photo_upload_error: '',
       user: {
         first_name: this.$auth.user.first_name,
         last_name: this.$auth.user.last_name,
@@ -91,13 +103,16 @@ export default {
   }
   ,
   methods: {
-    get_picture(){
+    get_picture() {
+      if (this.$auth.user.photo != null) {
+        return this.$auth.user.photo
+      }
+
       let name = 'man'
-      if ( this.user.gender.toLowerCase()==='female')
-      {
+      if (this.user.gender.toLowerCase() === 'female') {
         name = 'woman'
       }
-      return '../'+ name +'.png'
+      return '../' + name + '.png'
 
     },
     validate_url(url) {
@@ -112,16 +127,67 @@ export default {
       try {
         let response = await this.$axios.put('endpoint/accounts/api/user/',
           this.user)
-        this.$auth.fetchUser()
+        if (response.status === 200) {
+          this.$auth.fetchUser()
+        }
       } catch (err) {
         this.error = err.response.data
         console.log(err)
       }
-    }
+    },
+    async removePhoto() {
+      this.photo_upload_error = ''
+      try {
+        let response = await this.$axios.delete('endpoint/accounts/api/user/upload-photo/')
+        if (response.status === 200) {
+          this.$auth.fetchUser()
+        }
+      } catch (err) {
+        this.photo_upload_error = err.response.data
+        console.log(err)
+      }
+    },
+    async uploadPhoto(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+
+      // const readData = (f) => new Promise((resolve) => {
+      //   const reader = new FileReader();
+      //   reader.onloadend = () => resolve(reader.result);
+      //   reader.readAsDataURL(f);
+      // });
+
+      /* Read data */
+      // const data = await readData(file);
+      console.log(file)
+
+      this.photo_upload_error = ''
+      try {
+        let response = await this.$axios.post('endpoint/accounts/api/user/upload-photo/',
+          file,
+          {
+            headers: {
+              'Content-type': file.type,
+              'Content-Disposition' : 'attachment; filename="' + file.name + '"'
+            }
+          })
+        if (response.status === 200) {
+          this.$auth.fetchUser()
+        }
+      } catch (err) {
+        //this.photo_upload_error = err.response.data
+        console.log(err)
+      }
+    },
+
+
   }
 }
 </script>
 
 <style scoped>
-
+input[type="file"] {
+  position: absolute;
+  top: -500px;
+}
 </style>
