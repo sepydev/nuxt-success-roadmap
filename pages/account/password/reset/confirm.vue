@@ -58,23 +58,25 @@ export default {
     }
   },
   methods: {
-    async changePassword() {
+    async changePassword()
+    {
       this.error = ''
-      if (!(this.passwordLengthCheck & this.matchPasswords)) {
+      if (!(this.passwordLengthCheck && this.matchPasswords)) {
         return
       }
       try {
-        let response = await this.$axios.post(
+        await this.$axios.post(
           'endpoint/accounts/api/password/reset/confirm/',
           this.data
-        )
-        this.$router.push('/done?msg=Reset password is completed.&url=account/login&button=Login')
+        );
+        await this.$router.push('/done?msg=Reset password is completed.&url=account/login&button=Login')
       } catch (err) {
         this.error = err.response.data
         console.log(err)
       }
 
     }
+
   }
 
 }

@@ -64,20 +64,21 @@ export default {
     }
   },
   methods: {
-    async registerNewAccount() {
+    async registerNewAccount()
+    {
       this.error = ''
-      if (!(this.passwordLengthCheck & this.matchPasswords)) {
+      if (!(this.passwordLengthCheck && this.matchPasswords)) {
         return
       }
       this.register.username = this.register.email
       try {
         this.$nuxt.$loading.start()
 
-        let response = await this.$axios.post(
+        await this.$axios.post(
           'endpoint/accounts/api/registration/',
           this.register
-        )
-        this.$router.push('/done?msg=Verification e-mail sent. Please active your account.&url=account/login&button=Login')
+        );
+        await this.$router.push('/done?msg=Verification e-mail sent. Please active your account.&url=account/login&button=Login')
       } catch (err) {
         this.error = err.response.data
         console.log(err)
@@ -85,6 +86,7 @@ export default {
       this.$nuxt.$loading.finish()
 
     }
+
   }
 }
 </script>

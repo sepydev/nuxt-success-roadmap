@@ -28,19 +28,21 @@ export default {
     }
   },
   methods: {
-    async resetPassword() {
+    async resetPassword()
+    {
       this.$nuxt.$loading.start()
       try {
-        let response = await this.$axios.post('endpoint/accounts/api/password/reset/',
+        await this.$axios.post('endpoint/accounts/api/password/reset/',
           {
             email: this.email
-          })
-        this.$router.push('/done?msg=You will receive an email with a link to reset your password.&url=/&button=Home')
+          });
+        await this.$router.push('/done?msg=You will receive an email with a link to reset your password.&url=/&button=Home')
       } catch (err) {
         console.log(err)
       }
       this.$nuxt.$loading.finish()
     }
+
   }
 }
 </script>

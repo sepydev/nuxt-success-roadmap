@@ -14,10 +14,10 @@
       </div>
       <br/>
 
-      <b-button  type="submit" >Submit</b-button>
+      <b-button type="submit">Submit</b-button>
     </b-form>
     <br/>
-    <nuxt-link to="/account/password/reset/" >forget password</nuxt-link>
+    <nuxt-link to="/account/password/reset/">forget password</nuxt-link>
 
   </div>
 
@@ -37,25 +37,24 @@ export default {
         email: '',
         password: '',
       },
-      error:'',
+      error: '',
     }
   },
   methods: {
     async userLogin() {
       try {
-        let response = await this.$auth.loginWith('local',
+        await this.$auth.loginWith('local',
           {
             data: this.login
-          })
-        this.$router.push('/')
+          });
+        await this.$router.push('/')
       } catch (err) {
         this.error = err.response.data.non_field_errors
         console.log(err)
       }
-    }
-  }
+    },
 
-
+  },
 }
 </script>
 

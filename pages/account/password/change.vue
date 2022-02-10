@@ -63,8 +63,8 @@ export default {
       try {
         let response = await this.$axios.post('endpoint/accounts/api/password/change/',
           this.data)
-        if (response.status == 200) {
-          this.$router.push('/done?msg=The password is changed.&url=account/login&button=Login')
+        if (response.status === 200) {
+          await this.$router.push('/done?msg=The password is changed.&url=account/login&button=Login')
         }
 
 
