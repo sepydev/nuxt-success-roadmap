@@ -96,7 +96,7 @@ export default {
         gender: this.$auth.user.gender
 
       },
-      url_regex: /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/,
+      url_regex: /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_+.~#?&/=]*)/,
       phone_regex: /(^(\+?1?\d{9,15})$)|^$/,
 
     }
@@ -128,7 +128,7 @@ export default {
         let response = await this.$axios.put('endpoint/accounts/api/user/',
           this.user)
         if (response.status === 200) {
-          this.$auth.fetchUser()
+          await this.$auth.fetchUser()
         }
       } catch (err) {
         this.error = err.response.data
@@ -140,7 +140,7 @@ export default {
       try {
         let response = await this.$axios.delete('endpoint/accounts/api/user/upload-photo/')
         if (response.status === 200) {
-          this.$auth.fetchUser()
+          await this.$auth.fetchUser()
         }
       } catch (err) {
         this.photo_upload_error = err.response.data
@@ -168,11 +168,11 @@ export default {
           {
             headers: {
               'Content-type': file.type,
-              'Content-Disposition' : 'attachment; filename="' + file.name + '"'
+              'Content-Disposition': 'attachment; filename="' + file.name + '"'
             }
           })
         if (response.status === 200) {
-          this.$auth.fetchUser()
+          await this.$auth.fetchUser()
         }
       } catch (err) {
         //this.photo_upload_error = err.response.data
