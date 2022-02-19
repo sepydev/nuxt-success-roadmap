@@ -105,7 +105,8 @@ export default {
   methods: {
     get_picture() {
       if (this.$auth.user.photo != null) {
-        return this.$auth.user.photo
+        let file_name = this.$auth.user.photo.split('/').pop()
+        return 'http://localhost:3000/media/images/' + file_name
       }
 
       let name = 'man'
