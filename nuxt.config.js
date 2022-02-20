@@ -58,9 +58,9 @@ export default {
       pathRewrite: {'^/endpoint': ''},
       changeOrigin: true
     },
-    '/media': {
+    '/personal-to-dos/media/images': {
       target: 'http://127.0.0.1:8000/',
-      pathRewrite: {'^/media': '/media'},
+      pathRewrite: {'^/images': '/images'},
       changeOrigin: true
     },
 
