@@ -117,7 +117,13 @@ export default {
 
     },
     validate_url(url) {
-      return this.url_regex.test(url)
+      if (url !=='') {
+        return this.url_regex.test(url)
+      }
+      else
+      {
+        return true
+      }
     },
     validate_phone(url) {
       return this.phone_regex.test(url)
@@ -151,17 +157,6 @@ export default {
     async uploadPhoto(event) {
       const file = event.target.files[0];
       if (!file) return;
-
-      // const readData = (f) => new Promise((resolve) => {
-      //   const reader = new FileReader();
-      //   reader.onloadend = () => resolve(reader.result);
-      //   reader.readAsDataURL(f);
-      // });
-
-      /* Read data */
-      // const data = await readData(file);
-      console.log(file)
-
       this.photo_upload_error = ''
       try {
         let response = await this.$axios.post('endpoint/accounts/api/user/upload-photo/',
@@ -176,7 +171,6 @@ export default {
           await this.$auth.fetchUser()
         }
       } catch (err) {
-        //this.photo_upload_error = err.response.data
         console.log(err)
       }
     },
