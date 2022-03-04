@@ -5,9 +5,8 @@
         <h2>User Profile</h2>
         <div class="col order-md-1  ">
           <h6>Profile picture</h6>
-          <b-img :src="get_picture()" fluid rounded="circle"/>
+          <b-img :src="get_user_picture(this.user.gender)" fluid rounded="circle"/>
           <div class="d-flex justify-content-center">
-            <!--            <b-button class="m-2" @click="uploadPhoto">Upload a photo</b-button>-->
 
             <label class="btn btn-primary m-2">Upload a photo
               <input type="file" id="file" v-on:change="uploadPhoto($event)"/>
@@ -51,8 +50,6 @@
 
 
               <label class="my-2">Gender</label>
-              <!--          <vue-autosuggest :suggestions="genders" input-props=""-->
-              <!--                           :v-model="user.gender"/>-->
 
               <vue-simple-suggest
                 :list="genders"
@@ -96,38 +93,11 @@ export default {
         gender: this.$auth.user.gender
 
       },
-      url_regex: /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_+.~#?&/=]*)/,
-      phone_regex: /(^(\+?1?\d{9,15})$)|^$/,
 
     }
   }
   ,
   methods: {
-    get_picture() {
-      if (this.$auth.user.photo != null) {
-        let file_name = this.$auth.user.photo.split('/').pop()
-        return '/personal-to-dos/media/images/' + file_name
-      }
-
-      let name = 'man'
-      if (this.user.gender.toLowerCase() === 'female') {
-        name = 'woman'
-      }
-      return '../' + name + '.png'
-
-    },
-    validate_url(url) {
-      if (url !=='') {
-        return this.url_regex.test(url)
-      }
-      else
-      {
-        return true
-      }
-    },
-    validate_phone(url) {
-      return this.phone_regex.test(url)
-    },
 
     async saveUserData() {
       this.error = ''
