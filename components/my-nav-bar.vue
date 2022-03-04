@@ -3,13 +3,14 @@
 
     <push :isOpen="open"
           :burgerIcon="false">
+
       <nuxt-link class="link-primary" to="/">Home</nuxt-link>
       <hr class="my-4">
       <div class="row" v-if="this.$auth.loggedIn">
-        <nuxt-link class="link-primary" to="/personal-todo/core-values">Core values</nuxt-link>
-        <nuxt-link class="link-primary" to="/personal-todo/goals">Goals</nuxt-link>
-        <nuxt-link class="link-primary" to="/personal-todo/tasks">Tasks</nuxt-link>
-        <nuxt-link class="link-primary" to="/personal-todo/to-do-list">To do list</nuxt-link>
+        <nuxt-link class="link-secondary" to="/personal-todo/core-values">Core values</nuxt-link>
+        <nuxt-link class="link-secondary" to="/personal-todo/goals">Goals</nuxt-link>
+        <nuxt-link class="link-secondary" to="/personal-todo/tasks">Tasks</nuxt-link>
+        <nuxt-link class="link-secondary" to="/personal-todo/to-do-list">To do list</nuxt-link>
       </div>
 
     </push>
@@ -23,8 +24,8 @@
           <span></span>
         </div>
       </div>
-      <b-navbar-brand to="/" style="padding-left: 10px;  ">
-        Home
+      <b-navbar-brand   style="padding-left: 10px;  ">
+        Success-roadmap
       </b-navbar-brand>
 
 
@@ -90,7 +91,7 @@ body {
 
 /* Icon 1 */
 
-#nav-icon  {
+#nav-icon {
   width: 25px;
   height: 20px;
   position: relative;

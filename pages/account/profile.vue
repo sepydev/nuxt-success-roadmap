@@ -1,9 +1,9 @@
 <template>
   <div>
     <b-form @submit.prevent="saveUserData">
-      <div class="col-md-8 offset-md-2 row ">
+      <div class="col-lg-8 offset-lg-2 row ">
         <h2>User Profile</h2>
-        <div class="col order-md-1  ">
+        <div class="col-md order-md-1  ">
           <h6>Profile picture</h6>
           <b-img :src="get_user_picture(this.user.gender)" fluid rounded="circle"/>
           <div class="d-flex justify-content-center">
@@ -19,7 +19,7 @@
             {{ this.photo_upload_error }}
           </div>
         </div>
-        <div class="col order-md-0  ">
+        <div class="col-md order-md-0  ">
           <b-card class="m-2">
             <label class="my-2">Email:</label>
             <b-form-input type="text" :value="this.$auth.user.email" readonly/>
