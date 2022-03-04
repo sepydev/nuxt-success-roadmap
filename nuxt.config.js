@@ -22,7 +22,12 @@ export default {
   globals: [],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-  plugins: ['~/plugins/axios'],
+  plugins: [
+    '~/plugins/axios',
+    '~/plugins/user_methods',
+    '~/plugins/validators',
+    { src: '~/plugins/slide-menu', ssr: false },
+  ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: true,
@@ -105,5 +110,7 @@ export default {
   },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
-  build: {}
+  build: {
+    vendor: ['vue-burger-menu'],
+  }
 }
