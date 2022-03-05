@@ -26,6 +26,7 @@ export default {
     '~/plugins/axios',
     '~/plugins/user_methods',
     '~/plugins/validators',
+    '~/plugins/field-value-suggestion',
     { src: '~/plugins/slide-menu', ssr: false },
   ],
 

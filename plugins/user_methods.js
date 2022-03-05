@@ -18,7 +18,5 @@ const user_mixin = {
   }
 }
 
-// if (!Vue.__my_mixin__) {
-//   Vue.__my_mixin__ = true
-  Vue.mixin(user_mixin)
-// }
+Vue.mixin(user_mixin)
+
