@@ -7,10 +7,10 @@
       <nuxt-link class="link-primary" to="/">Home</nuxt-link>
       <hr class="my-4">
       <div class="row" v-if="this.$auth.loggedIn">
-        <nuxt-link class="link-secondary" to="/personal-todo/core-values">Core values</nuxt-link>
-        <nuxt-link class="link-secondary" to="/personal-todo/goals">Goals</nuxt-link>
-        <nuxt-link class="link-secondary" to="/personal-todo/tasks">Tasks</nuxt-link>
-        <nuxt-link class="link-secondary" to="/personal-todo/to-do-list">To do list</nuxt-link>
+        <nuxt-link class="link-light" to="/personal-todo/core-values">Core values</nuxt-link>
+        <nuxt-link class="link-light" to="/personal-todo/goals">Goals</nuxt-link>
+        <nuxt-link class="link-light" to="/personal-todo/tasks">Tasks</nuxt-link>
+        <nuxt-link class="link-light" to="/personal-todo/to-do-list">To do list</nuxt-link>
       </div>
 
     </push>

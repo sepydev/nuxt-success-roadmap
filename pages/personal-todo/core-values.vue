@@ -3,20 +3,17 @@
     <div class="col-lg-8 offset-lg-2 row ">
       <h2>My Core Values</h2>
       <div>
-        <b-button class="btn-primary" @click="add">Add new core value</b-button>
-
+        <b-button variant="primary" @click="add">Add new core value</b-button>
         <b-table :items="core_values" :fields="fields" striped responsive="sm">
           <template #cell(operations)="row">
-            <b-button size="sm" @click="edit(row.item)" class="mr-2">
+            <b-button size="sm" @click="edit(row.item)">
               Edit
             </b-button>
-            <b-button size="sm" @click="delete_core_value(row.item)" class="mr-2 btn-danger">
+            <b-button size="sm" @click="delete_core_value(row.item)" variant="danger">
               Delete
             </b-button>
           </template>
-
         </b-table>
-
       </div>
     </div>
     <core-value-detail
@@ -30,7 +27,7 @@
 </template>
 
 <script>
-import CoreValueDetail from "@/components/personal-todo/core-values/core-value-detail";
+import CoreValueDetail from "@/components/personal-todo/core-value-detail";
 
 export default {
   name: "index",
@@ -43,7 +40,6 @@ export default {
     return {
       fields: ["title", "description", "operations"],
       core_values: [],
-      show_modal: false,
       selected_item: {
         pk: Number,
         title: String,
@@ -83,7 +79,6 @@ export default {
         let response = await this.$axios.get('endpoint/personal-to-dos/core-value/')
         if (response.status === 200) {
           this.core_values = response.data
-          console.log(response)
         }
       } catch (err) {
         console.log(err)

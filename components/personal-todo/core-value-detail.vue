@@ -1,8 +1,6 @@
 <template>
   <div>
-
     <b-modal id="modal-core-value" :title="form_title" @ok="handleOk">
-
       <b-form ref="form" @submit.stop.prevent="save_data">
         <b-form-group
           label="Title"
@@ -41,14 +39,9 @@
         <br/>
 
       </b-form>
-
-
     </b-modal>
-
   </div>
-
 </template>
-
 <script>
 import VueSimpleSuggest from 'vue-simple-suggest'
 
@@ -96,48 +89,34 @@ export default {
       if (!this.checkFormValidity()) {
         return
       }
-
+      let data = {
+        title: this.title,
+        description: this.description,
+        is_active: true
+      }
+      let response = null
       if (this.insert_mode) {
         try {
-          let response = await this.$axios.post('endpoint/personal-to-dos/core-value/',
-            {
-              title: this.title,
-              description: this.description,
-              is_active: true
-            }
-          )
-          if (response.status === 201) {
-            this.$emit('callback')
-            this.$nextTick(() => {
-              this.$bvModal.hide('modal-core-value')
-            })
-          }
+          response = await this.$axios.post('endpoint/personal-to-dos/core-value/', data)
         } catch (err) {
           console.log(err)
+          return
         }
       } else {
-
-
         try {
-          let response = await this.$axios.put('endpoint/personal-to-dos/core-value/' + this.pk.toString() + "/",
-            {
-              title: this.title,
-              description: this.description,
-              is_active: true
-            },
-          )
-          if (response.status === 200) {
-            this.$emit('callback')
-            this.$nextTick(() => {
-              this.$bvModal.hide('modal-core-value')
-            })
-          }
+          response = await this.$axios.put('endpoint/personal-to-dos/core-value/' + this.pk.toString() + "/", data)
         } catch (err) {
           console.log(err)
+          return
         }
-
-
       }
+      if (response != null && (response.status === 201 || response.status === 200)) {
+        this.$emit('callback')
+        this.$nextTick(() => {
+          this.$bvModal.hide('modal-core-value')
+        })
+      }
+
 
     }
   }
