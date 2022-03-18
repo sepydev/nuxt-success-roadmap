@@ -13,6 +13,7 @@
             id="title-input"
             v-model="title"
             :state="titleState"
+            :filter-by-query="true"
             required
           />
 
