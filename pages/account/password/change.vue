@@ -61,7 +61,7 @@ export default {
     async changePassword() {
       this.error = ""
       try {
-        let response = await this.$axios.post('endpoint/accounts/api/password/change/',
+        let response = await this.$axios.post('accounts/api/password/change/',
           this.data)
         if (response.status === 200) {
           await this.$router.push('/done?msg=The password is changed.&url=account/login&button=Login')
