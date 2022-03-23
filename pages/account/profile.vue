@@ -5,7 +5,7 @@
         <h2>User Profile</h2>
         <div class="col-md order-md-1  ">
           <h6>Profile picture</h6>
-          <b-img :src="get_user_picture(this.user.gender)" fluid rounded="circle"/>
+          <b-img :src="img" fluid rounded="circle"/>
           <div class="d-flex justify-content-center">
 
             <label class="btn btn-primary m-2">Upload a photo
@@ -84,6 +84,7 @@ export default {
       genders: ['Male', 'Female',],
       error: '',
       photo_upload_error: '',
+      img: null,
       user: {
         first_name: this.$auth.user.first_name,
         last_name: this.$auth.user.last_name,
@@ -97,12 +98,15 @@ export default {
     }
   }
   ,
+  mounted() {
+    this.get_user_image()
+  },
   methods: {
 
     async saveUserData() {
       this.error = ''
       try {
-        let response = await this.$axios.put('endpoint/accounts/api/user/',
+        let response = await this.$axios.put('accounts/api/user/',
           this.user)
         if (response.status === 200) {
           await this.$auth.fetchUser()
@@ -115,9 +119,11 @@ export default {
     async removePhoto() {
       this.photo_upload_error = ''
       try {
-        let response = await this.$axios.delete('endpoint/accounts/api/user/upload-photo/')
+        let response = await this.$axios.delete('accounts/api/user/upload-photo/')
         if (response.status === 200) {
           await this.$auth.fetchUser()
+          this.get_user_image()
+
         }
       } catch (err) {
         this.photo_upload_error = err.response.data
@@ -129,7 +135,7 @@ export default {
       if (!file) return;
       this.photo_upload_error = ''
       try {
-        let response = await this.$axios.post('endpoint/accounts/api/user/upload-photo/',
+        let response = await this.$axios.post('accounts/api/user/upload-photo/',
           file,
           {
             headers: {
@@ -139,11 +145,30 @@ export default {
           })
         if (response.status === 200) {
           await this.$auth.fetchUser()
+          this.get_user_image()
         }
       } catch (err) {
         console.log(err)
       }
     },
+    get_user_image() {
+      let This = this
+      let file_name = this.$auth.user.photo.split('/').pop()
+      this.$axios.get(
+        '/personal-to-dos/media/images/' + file_name,
+        {
+          responseType:"blob"
+        }
+      ).then((response) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(response.data);
+        reader.onloadend = function () {
+          This.img =reader.result
+        }
+      });
+
+    },
+
 
 
   }

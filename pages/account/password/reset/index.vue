@@ -32,7 +32,7 @@ export default {
     {
       this.$nuxt.$loading.start()
       try {
-        await this.$axios.post('endpoint/accounts/api/password/reset/',
+        await this.$axios.post('accounts/api/password/reset/',
           {
             email: this.email
           });

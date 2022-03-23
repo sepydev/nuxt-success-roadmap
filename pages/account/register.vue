@@ -75,7 +75,7 @@ export default {
         this.$nuxt.$loading.start()
 
         await this.$axios.post(
-          'endpoint/accounts/api/registration/',
+          'accounts/api/registration/',
           this.register
         );
         await this.$router.push('/done?msg=Verification e-mail sent. Please active your account.&url=account/login&button=Login')

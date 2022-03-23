@@ -7,7 +7,7 @@ const suggestion_mixin = {
 
       try {
         let response = await this.$axios.get(
-          'endpoint/core/field-values-suggestion/?content_type=' + content_type + '&field=' + field
+          'core/field-values-suggestion/?content_type=' + content_type + '&field=' + field
         )
         if (response.status === 200) {
           return response.data

@@ -45,7 +45,7 @@ export default {
   methods:{
     async load_tasks() {
       try {
-        let response = await this.$axios.get('endpoint/personal-to-dos/task/')
+        let response = await this.$axios.get('personal-to-dos/task/')
         if (response.status === 200) {
           this.tasks = response.data
         }
@@ -66,7 +66,7 @@ export default {
     },
     async delete_task(goal) {
       try {
-        let response = await this.$axios.delete('endpoint/personal-to-dos/task/' + goal.pk.toString() + "/"
+        let response = await this.$axios.delete('personal-to-dos/task/' + goal.pk.toString() + "/"
         )
         if (response.status === 204) {
           await this.load_tasks()

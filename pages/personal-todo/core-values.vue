@@ -65,7 +65,7 @@ export default {
     },
     async delete_core_value(item) {
       try {
-        let response = await this.$axios.delete('endpoint/personal-to-dos/core-value/' + item.pk.toString() + "/"
+        let response = await this.$axios.delete('personal-to-dos/core-value/' + item.pk.toString() + "/"
         )
         if (response.status === 204) {
           await this.load_core_values()
@@ -76,7 +76,7 @@ export default {
     },
     async load_core_values() {
       try {
-        let response = await this.$axios.get('endpoint/personal-to-dos/core-value/')
+        let response = await this.$axios.get('personal-to-dos/core-value/')
         if (response.status === 200) {
           this.core_values = response.data
         }

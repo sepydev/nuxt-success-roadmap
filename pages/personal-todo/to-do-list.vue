@@ -48,7 +48,7 @@ export default {
         console.log(date)
 
         let response = await this.$axios.get(
-          'endpoint/personal-to-dos/to-do-list/?date=' + date)
+          'personal-to-dos/to-do-list/?date=' + date)
         if (response.status === 200) {
           this.to_dos = response.data
         }

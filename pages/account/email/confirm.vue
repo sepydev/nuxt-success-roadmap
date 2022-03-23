@@ -17,7 +17,7 @@ export default {
       this.error = ''
       try {
         await this.$axios.post(
-          'endpoint/accounts/api/registration/verify-email/',
+          'accounts/api/registration/verify-email/',
           {
             key: this.$route.query.key
           }

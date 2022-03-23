@@ -26,7 +26,7 @@ export default {
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
     '~/plugins/axios',
-    '~/plugins/user_methods',
+    {src: '~/plugins/user_methods' } ,
     '~/plugins/validators',
     '~/plugins/field-value-suggestion',
     { src: '~/plugins/slide-menu', ssr: false },
@@ -57,24 +57,22 @@ export default {
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {
-    // baseURL: 'http://127.0.0.1:8000/',
-    proxy: true,
+    baseURL: 'http://localhost:8000',
+    // proxy: true,
 
 
   },
-  proxy: {
-    '/endpoint': {
-      target: 'http://127.0.0.1:8000/',
-      pathRewrite: {'^/endpoint': ''},
-      changeOrigin: true
-    },
-    '/personal-to-dos/media/images': {
-      target: 'http://127.0.0.1:8000/',
-      pathRewrite: {'^/images': '/images'},
-      changeOrigin: true
-    },
-
-  },
+  // proxy: {
+  //   "/endpoint": {
+  //     target: 'http://localhost:8000' ,
+  //     pathRewrite: {"^/endpoint": ''},
+  //   },
+  //   "/personal-to-dos/media/images": {
+  //     target: 'http://localhost:8000' ,
+  //     pathRewrite: {"^/images": "/images"},
+  //   },
+  //
+  // },
 
   auth: {
     redirect: {
@@ -102,9 +100,9 @@ export default {
         //   },
         // },
         endpoints: {
-          login: {url: '/endpoint/accounts/api/login/', method: 'post'},
-          logout: {url: '/endpoint/accounts/api/logout/', method: 'post'},
-          user: {url: '/endpoint/accounts/api/user/', method: 'get'}
+          login: {url: '/accounts/api/login/', method: 'post'},
+          logout: {url: '/accounts/api/logout/', method: 'post'},
+          user: {url: '/accounts/api/user/', method: 'get'}
         }
       }
     }

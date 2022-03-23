@@ -63,7 +63,7 @@ export default {
     },
     async load_goals() {
       try {
-        let response = await this.$axios.get('endpoint/personal-to-dos/goal/')
+        let response = await this.$axios.get('personal-to-dos/goal/')
         if (response.status === 200) {
           this.goals = response.data
         }

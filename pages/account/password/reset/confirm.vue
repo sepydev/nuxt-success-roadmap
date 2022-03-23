@@ -66,7 +66,7 @@ export default {
       }
       try {
         await this.$axios.post(
-          'endpoint/accounts/api/password/reset/confirm/',
+          'accounts/api/password/reset/confirm/',
           this.data
         );
         await this.$router.push('/done?msg=Reset password is completed.&url=account/login&button=Login')
